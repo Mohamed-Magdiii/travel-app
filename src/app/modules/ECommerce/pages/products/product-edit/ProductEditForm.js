@@ -34,6 +34,7 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
                     placeholder="Product Code"
                     label="product code"
                     component={Input}
+
                   />
                 </div>
                 <div className="col-lg-4">
@@ -42,7 +43,6 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
                     placeholder="class code"
                     label="class code"
                     component={Input}
-                    className="form-control"
                   />
                 </div>
               </div>
@@ -54,7 +54,6 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
                     component={Input}
                     placeholder="Description"
                     label="Description"
-                    className="form-control"
                   />
                 </div>
                 <div className="col-lg-4">
@@ -63,7 +62,6 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
                     component={Input}
                     placeholder="Description Bl"
                     label="Description Bl"
-                    className="form-control"
                   />
                 </div>
               </div>
@@ -74,7 +72,6 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
                     component={Input}
                     placeholder="Description Bl"
                     label="Description Bl"
-                    className="form-control"
                     />
                 </div>
                 <div className="col-lg-4">
@@ -83,7 +80,6 @@ export function ProductEditForm({ product, btnRef, saveProduct }) {
                     component={Input}
                     placeholder="shortDescBl"
                     label="shortDescBl"
-                    className="form-control"
                   />
                 </div>
               </div>

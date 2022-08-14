@@ -9,7 +9,7 @@ import {
 const initialState = {
   loading: true,
  entities:[],
- entity:null,
+ entity:undefined,
  totalCount:0,
  error:null
 };
@@ -21,7 +21,8 @@ const productReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         entities:action.payload,
-        count:action.payload.length
+        count:action.payload.length,
+        entity:undefined
       };
       case CREATE_PRODUCT:
         return {

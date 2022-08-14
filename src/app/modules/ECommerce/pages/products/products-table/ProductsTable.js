@@ -17,7 +17,6 @@ import {
   sortCaret,
 } from "../../../../../../_metronic/_helpers";
 import * as columnFormatters from "./column-formatters";
-import { Pagination } from "../../../../../../_metronic/_partials/controls";
 import { useProductsUIContext } from "../ProductsUIContext";
 
 import moment from'moment'
@@ -27,7 +26,6 @@ export function ProductsTable() {
   // Products UI Context
   const productsUIContext = useProductsUIContext();
   const productsUIProps = useMemo(() => {
-  
     return {
       ids: productsUIContext.ids,
       setIds: productsUIContext.setIds,
@@ -110,50 +108,50 @@ export function ProductsTable() {
     },
   ];
   // Table pagination properties
-  const paginationOptions = {
-    custom: true,
-    totalSize: currentState.products.count,
-    sizePerPageList: uiHelpers.sizePerPageList,
-    sizePerPage: productsUIProps.queryParams.pageSize,
-    page: productsUIProps.queryParams.pageNumber,
-  };
+  // const paginationOptions = {
+  //   custom: true,
+  //   totalSize: currentState.products.count,
+  //   sizePerPageList: uiHelpers.sizePerPageList,
+  //   sizePerPage: productsUIProps.queryParams.pageSize,
+  //   page: productsUIProps.queryParams.pageNumber,
+  // };
   return (
     <>
       {currentState.products.loading ? "loading": (
-        <PaginationProvider pagination={paginationFactory(paginationOptions)}>
-        {({ paginationProps, paginationTableProps }) => {
-          return (
-            <Pagination
-              isLoading={currentState.products.loading}
-              paginationProps={paginationProps}
-            >
+        // <PaginationProvider pagination={paginationFactory(paginationOptions)}>
+        // {({ paginationProps, paginationTableProps }) => {
+        //   return (
+        //     <Pagination
+        //       isLoading={currentState.products.loading}
+        //       paginationProps={paginationProps}
+        //     >
               <BootstrapTable
                 wrapperClasses="table-responsive"
                 classes="table table-head-custom table-vertical-center overflow-hidden"
                 bootstrap4
                 bordered={true}
-                remote
+                
                 keyField="_id"
                 data={currentState.products.entities.length === 0 ? [] : entities}
                 columns={columns}
                 defaultSorted={uiHelpers.defaultSorted}
-                onTableChange={getHandlerTableChange(
-                  productsUIProps.setQueryParams
-                )}
+                // onTableChange={getHandlerTableChange(
+                //   productsUIProps.setQueryParams
+                // )}
                 // selectRow={getSelectRow({
                 //   products:currentState.products.entities,
                 //   ids: productsUIProps._id,
                 //   setIds: productsUIProps.setIds,
                 // })}
-                {...paginationTableProps}
+                // {...paginationTableProps}
               >
                  <PleaseWaitMessage entities={entities} />
                 <NoRecordsFoundMessage entities={entities} /> 
               </BootstrapTable>
-            </Pagination>
-          );
-        }}
-      </PaginationProvider>
+            // </Pagination>
+      //     );
+      //   }}
+      // </PaginationProvider>
       )}
     </>
   );

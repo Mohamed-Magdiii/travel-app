@@ -5,14 +5,12 @@ import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../../../../../_metronic/_helpers";
 
 export const ActionsColumnFormatter = (
-  cellContent,
   row,
-  rowIndex,
   { openEditProductPage, openDeleteProductDialog }
 ) => (
-  <> 
+  <>
     <OverlayTrigger
-      overlay={<Tooltip id="products-edit-tooltip">Edit product</Tooltip>}
+      overlay={<Tooltip id="products-edit-tooltip">Edit Customer</Tooltip>}
     >
       <a
         className="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
