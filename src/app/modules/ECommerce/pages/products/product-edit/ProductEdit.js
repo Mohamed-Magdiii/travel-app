@@ -37,6 +37,10 @@ export function ProductEdit({
   const [tab, setTab] = useState("basic");
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProductById(id));
+  }, [dispatch,id]);
+
   // const layoutDispatch = useContext(LayoutContext.Dispatch);
   const { actionsLoading, productForEdit ,auth } = useSelector(
     (state) => ({
@@ -46,16 +50,12 @@ export function ProductEdit({
     }),
     shallowEqual
   );
-
-  useEffect(() => {
-    dispatch(getProductById(id));
-  }, [id, dispatch]);
+    
 
   useEffect(() => {
     let _title = id ? "" : "New Product";
     if (productForEdit ) {
-      _title = `Edit product '${productForEdit.code} ${productForEdit.desc} - ${productForEdit.shortDesc}'`
-      console.log(_title);
+      _title = `Edit product '${productForEdit.code} - ${productForEdit.shortDesc}'`
 
     }
     setTitle(_title);
@@ -65,7 +65,6 @@ export function ProductEdit({
 
   const saveProduct = (values) => {
     if (!id) {
-
       values.userId= auth
       dispatch(createNewProduct(values)).then(() => 
       backToProductsList()
@@ -79,13 +78,13 @@ export function ProductEdit({
   const saveProductClick = () => {
     if (btnRef && btnRef.current) {
       btnRef.current.click();
+      console.log(btnRef.current.click());
     }
   };
 
   const backToProductsList = () => {
     history.push(`/setup/products`);
   };
-
   return (
     <Card>
       {actionsLoading && <ModalProgressBar />}
