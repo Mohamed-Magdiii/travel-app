@@ -1,42 +1,44 @@
-import {CREATE_CUSTOMER,
-    UPDATE_CUSTOMER,
-    GET_CUSTOMERS,
-    GET_CUSTOMER_BYID,
-    DELETE_CUSTOMER} from '../../actions/customer/types'
+import {
+    GET_COVERS,
+    CREATE_COVERS,
+    UPDATE_COVERS,
+    GET_COVER_BYID,
+    DELETE_COVERS
+  } from "../../actions/covers/types";
   
   const initialState = {
     loading: true,
    entities:[],
-   entity:undefined,
+   entity:null,
    totalCount:0,
    error:null
   };
   
-  const customerReducer = (state = initialState, action) => {
+  const coverReducer = (state = initialState, action) => {
     switch (action.type) {
-      case GET_CUSTOMERS:
+      case GET_COVERS:
         return {
           ...state,
           loading: false,
           entities:action.payload,
-          totalCount:action.payload.length,
-          entity:undefined
+          count:action.payload.length,
+          entity:undefined,
         };
-        case CREATE_CUSTOMER:
+        case CREATE_COVERS:
           return {
             ...state,
             loading:false,
             entities:[...state.entities, action.payload],
-            totalCount:action.payload.length
+            count:action.payload.length
           }
-            case UPDATE_CUSTOMER:
-            case GET_CUSTOMER_BYID:
+            case UPDATE_COVERS:
+            case GET_COVER_BYID:
               return {
                 ...state,
                 loading:false,
                 entity:action.payload,
               }
-              case DELETE_CUSTOMER:
+              case DELETE_COVERS:
                 return{
                   ...state,
                   loading:false,
@@ -47,5 +49,5 @@ import {CREATE_CUSTOMER,
     }
   };
   
-  export default customerReducer;
+  export default coverReducer;
   

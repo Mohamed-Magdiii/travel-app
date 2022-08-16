@@ -1,30 +1,14 @@
-import React, {useMemo} from "react";
+import React from "react";
 import {
   Card,
   CardBody,
   CardHeader,
   CardHeaderToolbar,
 } from "../../../../../_metronic/_partials/controls";
-import { ProductsFilter } from "./products-filter/ProductsFilter";
-import { ProductsTable } from "./products-table/ProductsTable";
-import { useCoversUIContext } from "./CoversUIContext";
-
+import { CoversTable } from "./covers-table/CoversTable";
+import {useHistory} from 'react-router-dom'
 export function CoversCard() {
-  const coversUIContext = useCoversUIContext();
-  const coversUIProps = useMemo(() => {
-    return {
-      ids: coversUIContext.ids,
-      queryParams: coversUIContext.queryParams,
-      setQueryParams: coversUIContext.setQueryParams,
-      newCoverButtonClick: coversUIContext.newCoverButtonClick,
-      openDeleteCoversDialog: coversUIContext.openDeleteCoversDialog,
-      openEditCoverPage: coversUIContext.openEditCoverPage,
-      openUpdateCoversStatusDialog:
-        coversUIContext.openUpdateCoversStatusDialog,
-      openFetchCoversDialog: coversUIContext.openFetchCoversDialog,
-    };
-  }, [coversUIContext]);
-
+const history = useHistory()
   return (
     <Card>
       <CardHeader title="Covers list">
@@ -32,7 +16,7 @@ export function CoversCard() {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={coversUIProps.newCoverButtonClick}
+            onClick={()=>history.push('/setup/covers/new')}
           >
             Add Cover
           </button>
@@ -45,7 +29,7 @@ export function CoversCard() {
             <ProductsGrouping />
           </>
         )} */}
-        <ProductsTable />
+        <CoversTable />
       </CardBody>
     </Card>
   );

@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
-import { isEqual, isFunction } from "lodash";
-import { initialFilter } from "./CustomersUIHelpers";
+import React, { createContext, useContext } from "react";
+// import { isEqual, isFunction } from "lodash";
 
 const CustomersUIContext = createContext();
 
@@ -11,7 +10,7 @@ export function useCustomerUIContext() {
 export const CustomerUIConsumer = CustomersUIContext.Consumer;
 
 export function CustomersUIProvider({ customersUIEvents, children }) {
-  const [queryParams, setQueryParamsBase] = useState(initialFilter);
+  // const [queryParams, setQueryParamsBase] = useState(initialFilter);
 //   const [ids, setIds] = useState([]);
   // const setQueryParams = useCallback((nextQueryParams) => {
   //   setQueryParamsBase((prevQueryParams) => {

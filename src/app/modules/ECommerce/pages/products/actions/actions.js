@@ -5,7 +5,6 @@ import axios from 'axios'
 export const fetchAllProducts = ()=>async (dispatch) =>{
     try { 
 const products = await axios.get(`${process.env.REACT_APP_API_URL}/product`)
-console.log(products);
         dispatch({
             type:GE_PRODUCTS,
             payload:products.data.result
@@ -18,7 +17,6 @@ console.log(products);
 
 export const createNewProduct = (form)=>async (dispatch) =>{
     try { 
-        console.log(form);
 const products = await axios.post(`${process.env.REACT_APP_API_URL}/product`,form )
         dispatch({
             type:CREATE_PRODUCT,
@@ -32,7 +30,6 @@ const products = await axios.post(`${process.env.REACT_APP_API_URL}/product`,for
 
 export const updateProduct = (form , id)=>async (dispatch) =>{
     try { 
-        console.log(form);
 const products = await axios.patch(`${process.env.REACT_APP_API_URL}/product/${id}`,form )
         dispatch({
             type:UPDATE_PRODUCT,

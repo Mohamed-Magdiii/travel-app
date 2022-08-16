@@ -3,20 +3,19 @@ import React, { useEffect, useMemo } from "react";
 import { Modal } from "react-bootstrap";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
-import * as actions from "../../../_redux/products/productsActions";
 import { deleteProductId ,fetchAllProducts} from "../actions/actions";
 import { useProductsUIContext } from "../ProductsUIContext";
 
 export function ProductDeleteDialog({ id, show, onHide }) {
   // Products UI Context
   const productsUIContext = useProductsUIContext();
-  const productsUIProps = useMemo(() => {
-    return {
-      setIds: productsUIContext.setIds,
-      queryParams: productsUIContext.queryParams,
-    };
-  }, [productsUIContext]);
-
+//  const productsUIProps = useMemo(() => {
+//     return {
+//       setIds: productsUIContext.setIds,
+//       queryParams: productsUIContext.queryParams,
+//     };
+//   }, [productsUIContext]);
+ 
   // Products Redux state
   const dispatch = useDispatch();
   const { isLoading } = useSelector(

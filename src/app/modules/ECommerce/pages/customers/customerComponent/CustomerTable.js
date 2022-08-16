@@ -3,21 +3,18 @@ import { fetchAllCustomers } from "../../../actions/customer/action";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import * as uiHelpers from "../CustomersUIHelpers";
 import {
-  getHandlerTableChange,
   NoRecordsFoundMessage,
   PleaseWaitMessage,
   sortCaret,
 } from "../../../../../../_metronic/_helpers";
 import BootstrapTable from "react-bootstrap-table-next";
-import { useCustomerUIContext } from "../CustomersUIContext";
-import * as columnFormatters from "./column-formatters/ActionsColumnFormatter";
 import {useHistory} from 'react-router-dom'
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../../../../_metronic/_helpers";
 
 function CustomerTable() {
-  const customersUIContext = useCustomerUIContext();
+  // const customersUIContext = useCustomerUIContext();
   const dispatch = useDispatch();
 
   const currentState = useSelector(
