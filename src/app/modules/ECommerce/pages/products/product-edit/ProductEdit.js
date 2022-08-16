@@ -38,7 +38,7 @@ export function ProductEdit({
   const [title, setTitle] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProductById(id));
+   id && dispatch(getProductById(id));
   }, [dispatch,id]);
 
   // const layoutDispatch = useContext(LayoutContext.Dispatch);

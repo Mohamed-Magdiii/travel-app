@@ -19,8 +19,8 @@ export function DatePickerField({ ...props }) {
   const { setFieldValue, errors, touched } = useFormikContext();
   const [field] = useField(props);
   return (
-    <>
-      {props.label && <label>{props.label}</label>}
+    <div>
+  {props.label && <label>{props.label}</label>}
       <DatePicker
         className={getFieldCSSClasses(touched[field.name], errors[field.name])}
         style={{ width: "100%" }}
@@ -40,6 +40,6 @@ export function DatePickerField({ ...props }) {
           Please enter <b>{props.label}</b> in 'mm/dd/yyyy' format
         </div>
       )}
-    </>
+    </div>
   );
 }

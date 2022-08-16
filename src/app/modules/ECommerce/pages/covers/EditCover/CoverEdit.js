@@ -5,47 +5,46 @@ import {
   CardHeader,
   CardHeaderToolbar,
 } from "../../../../../../_metronic/_partials/controls";
-import { useSubheader } from "../../../../../../_metronic/layout";
-import { useDispatch ,shallowEqual, useSelector} from "react-redux";
-import { getCustomerById , createNewCustomer,updateCustomer} from "../../../actions/customer/action";
-import { CustomerEditForm } from "./EditCustomerForm";
+import {CoverEditForm} from './EditCoverForm'
+import { useDispatch , useSelector} from "react-redux";
+import { getCoverById} from "../../../actions/covers/actions";
 import { ModalProgressBar } from "../../../../../../_metronic/_partials/controls";
 import { useHistory } from "react-router-dom";
+import {createNewCover,updateCover} from "../../../actions/covers/actions"
 
-export function CustomerEdit({
+export function CoverEdit({
   match: {
     params: { id },
   },
 }) {
   const dispatch = useDispatch();
   useEffect(() => {
-   id && dispatch(getCustomerById(id));
+   id && dispatch(getCoverById(id));
   }, [dispatch,id]);
 
 
-  const { actionsLoading, customerForEdit,auth } = useSelector(
+  const { actionsLoading, coverForEdit,auth } = useSelector(
     (state) => ({
-      actionsLoading: state.customers.loading,
-      customerForEdit: state.customers.entity,
-      auth:state.auth.user.result._id
+      actionsLoading: state.covers.loading,
+      coverForEdit: state.covers.entity,   
     }),
   );
-  const initCustomer = {
-    customerCode: "",
+  const initCover = {
+    productId: "",
+    parentCover: null,
+    coverCode: "",
+    coverType: "",
     nameEn: "",
     nameAr: "",
-    customerType: "",
-    policyAbbreviation: "",
-    parentBorker:"",
-    productId: "",
-    bookFees: "",
-    shortNameEn:"",
-    shortNameAr:""
+    shortNameEn: "",
+    shortNameAr: "",
+    longDescrEn: "",
+    longDescrAr: "",
+    from: "",
+    to: "",
   };
   const history = useHistory();
-  const suhbeader = useSubheader();
   const [tab, setTab] = useState("basic");
-  const [title, setTitle] = useState("");
   const btnRef = useRef();
   const saveProductClick = () => {
     if (btnRef && btnRef.current) {
@@ -53,28 +52,26 @@ export function CustomerEdit({
     }
   };
   const backToCustomersList = () => {
-    history.push(`/setup/customers`);
+    history.push(`/setup/covers`);
   };
   
   const backToProductsList = () => {
-    history.push(`/setup/customers`);
+    history.push(`/setup/covers`);
   };
-  const saveProduct = (values) => {
+  const saveCover = (values) => {
     if (!id) {
-      console.log(values);
-      dispatch(createNewCustomer(values)).then(() => 
+      dispatch(createNewCover(values)).then(() => 
       backToProductsList()
       );
     } else {
-      dispatch(updateCustomer(values ,id)).then(() => backToProductsList());
+      dispatch(updateCover(values ,id)).then(() => backToProductsList());
     }
   };
-  console.log(customerForEdit);
 
   return (
     <Card>
       {actionsLoading && <ModalProgressBar />}
-      <CardHeader title={title}>
+      <CardHeader title="Covers">
         <CardHeaderToolbar>
           <button
             type="button"
@@ -85,7 +82,6 @@ export function CustomerEdit({
             Back
           </button>
           {`  `}
-
           <button
             type="submit"
             className="btn btn-primary ml-2"
@@ -110,11 +106,12 @@ export function CustomerEdit({
         </ul>
          <div className="mt-5">
           {tab === "basic" && (
-            <CustomerEditForm
+            <CoverEditForm
               actionsLoading={actionsLoading}
-              customer={customerForEdit || initCustomer}
+              cover={coverForEdit || initCover}
               btnRef={btnRef}
-              saveProduct={saveProduct}
+              saveCover={saveCover}
+              id={id}
             />
           )}
         

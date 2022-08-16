@@ -1,7 +1,15 @@
-import React from "react";
-import { Input, Select } from "../../../../../../_metronic/_partials/controls";
+import React, { useEffect } from "react";
+import {
+  DatePickerField,
+  Input,
+  Select,
+} from "../../../../../../_metronic/_partials/controls";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { fetchAllProducts } from "../../products/actions/actions";
+// import { InputLabel } from "@material-ui/core";
+import { fetchAllCustomers } from "../../../actions/customer/action";
 
 // Validation schema
 const CustomerEditSchema = Yup.object().shape({
@@ -10,16 +18,32 @@ const CustomerEditSchema = Yup.object().shape({
   nameAr: Yup.string().required("nameAr is required"),
   productId: Yup.string().required("Product is required"),
   customerType: Yup.string().required("code is required"),
-  policyAbbreviation: Yup.string().required("policyAbbreviation is required"),
   shortNameEn: Yup.string().required("shortNameEn is required"),
   shortNameAr: Yup.string().required("shortNameAr is required"),
-  from: Yup.date().required("DateFrom is required"),
-  to: Yup.date().required("DateTo is required"),
+   from: Yup.mixed()
+    .nullable(false)
+    .required("From is required"),
+  to: Yup.mixed()
+  .nullable(false)
+  .required("To is required"),
 });
 export function CustomerEditForm({ customer, btnRef, saveProduct }) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAllProducts());
+    dispatch(fetchAllCustomers());
+  }, [dispatch]);
+  const currentState = useSelector(
+    (state) => ({
+      product: state.products,
+      customers: state.customers,
+    }),
+    shallowEqual
+  );
   return (
-    <>
-      <Formik
+    <div>
+      {!currentState.customers.loading && (
+        <Formik
         enableReinitialize={true}
         initialValues={customer}
         validationSchema={CustomerEditSchema}
@@ -40,10 +64,33 @@ export function CustomerEditForm({ customer, btnRef, saveProduct }) {
                   />
                 </div>
                 <div className="col-lg-4">
-                  <Field
-                    nas="select" 
-                    name="parentBroker"
-                  />
+                  <Select name="productId" label="Product">
+                  <option value={customer?.productId._id}>{customer?.productId.desc}</option>
+                    {currentState.product?.entities.map((s) => (
+                      <option key={s._id} value={s._id}>
+                        {s.desc}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+              </div>
+              <div className="form-group row">
+                <div className="col-lg-4">
+                  <Select name="parentBroker" label="Parent Broker">
+                  <option value={currentState.customers.entity ? currentState.customers.entity.parentBroker?._id : ""}></option>
+                    {currentState.customers?.entities.map((s) => (
+                      <option key={s._id} value={s._id}>
+                        {s.nameEn}
+                      </option>
+                    ))}
+                  </Select>
+                </div>
+                <div className="col-lg-4">
+                  <Select name="customerType" label="Customer Type">
+                    <option value="Broker">Broker</option>
+                    <option value="Customer">Customer</option>
+                    <option value="Treay">Treay</option>
+                  </Select>
                 </div>
               </div>
 
@@ -54,7 +101,6 @@ export function CustomerEditForm({ customer, btnRef, saveProduct }) {
                     component={Input}
                     placeholder="nameEn"
                     label="nameEn"
-                    className="form-control"
                   />
                 </div>
                 <div className="col-lg-4">
@@ -63,28 +109,56 @@ export function CustomerEditForm({ customer, btnRef, saveProduct }) {
                     component={Input}
                     placeholder="nameAr"
                     label="nameAr"
-                    className="form-control"
                   />
                 </div>
               </div>
               <div className="form-group row">
                 <div className="col-lg-4">
                   <Field
-                    name="customerType"
+                    name="shortNameEn"
                     component={Input}
-                    placeholder="customerType"
-                    label="customerType"
-                    className="form-control"
+                    placeholder="shortNameEn"
+                    label="shortNameEn"
                   />
                 </div>
                 <div className="col-lg-4">
                   <Field
-                    name="policyAbbreviation"
+                    name="shortNameAr"
                     component={Input}
-                    placeholder="policyAbbreviation"
-                    label="policyAbbreviation"
-                    className="form-control"
+                    placeholder="short NameAr"
+                    label="short NameAr"
                   />
+                </div>
+              </div>
+              <div className="form-group row">
+                <div className="col-lg-4">
+                <DatePickerField
+                      name="from"
+                      label="Date From"
+                    />
+                </div>
+                <div className="col-lg-4">
+                <DatePickerField
+                      name="to"
+                      label="Date To"
+                    />
+                </div>
+              </div>
+
+              <div className="form-group row">
+                <div className="col-lg-4">
+                  <Field
+                    name="bookFees"
+                    component={Input}
+                    placeholder="bookFees"
+                    label="bookFees"
+                  />
+                </div>
+                <div className="col-lg-4">
+                <Select name="policyAbbreviation" label="policyAbbreviation">
+                    <option value="GSAV">GSAV</option>
+                    <option value="OTIC">OTIC</option>
+                  </Select>
                 </div>
               </div>
               <button
@@ -97,6 +171,8 @@ export function CustomerEditForm({ customer, btnRef, saveProduct }) {
           </>
         )}
       </Formik>
-    </>
+      ) }
+      
+    </div>
   );
 }

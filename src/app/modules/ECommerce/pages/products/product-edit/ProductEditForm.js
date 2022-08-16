@@ -5,7 +5,7 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { Input, Select } from "../../../../../../_metronic/_partials/controls";
+import { Input } from "../../../../../../_metronic/_partials/controls";
 
 // Validation schema
 const ProductEditSchema = Yup.object().shape({

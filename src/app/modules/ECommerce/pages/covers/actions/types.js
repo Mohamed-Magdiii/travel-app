@@ -1,5 +1,0 @@
-export const GET_COVERS = 'GET_COVERS'
-export const CREATE_COVERS = 'CREATE_COVERS'
-export const UPDATE_COVERS = 'UPDATE_COVERS'
-export const GET_COVER_BYID = 'GET_COVER_BYID'
-export const DELETE_COVERS = 'DELETE_COVERS'

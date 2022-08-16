@@ -2,7 +2,7 @@ import {CREATE_CUSTOMER,
     UPDATE_CUSTOMER,
     GET_CUSTOMERS,
     GET_CUSTOMER_BYID,
-    DELETE_CUSTOMER} from './types'
+    } from './types'
 import axios from 'axios'
 
 
@@ -19,38 +19,35 @@ const customers = await axios.get(`${process.env.REACT_APP_API_URL}/customer`)
 }
 
 
-// export const createNewProduct = (form)=>async (dispatch) =>{
-//     try { 
-//         console.log(form);
-// const products = await axios.post(`${process.env.REACT_APP_API_URL}/product`,form )
-//         dispatch({
-//             type:CREATE_PRODUCT,
-//             payload:products.data.result
-//         })
-// } catch (error) {
-//         console.log(error);
-//     }
-// }
+export const createNewCustomer = (form)=>async (dispatch) =>{
+    try { 
+const customers = await axios.post(`${process.env.REACT_APP_API_URL}/customer`,form )
+        dispatch({
+            type:CREATE_CUSTOMER,
+            payload:customers.data.result
+        })
+} catch (error) {
+        console.log(error);
+    }
+}
 
 
-// export const updateProduct = (form , id)=>async (dispatch) =>{
-//     try { 
-//         console.log(form);
-// const products = await axios.patch(`${process.env.REACT_APP_API_URL}/product/${id}`,form )
-//         dispatch({
-//             type:UPDATE_PRODUCT,
-//             payload:products.data.result
-//         })
-// } catch (error) {
-//         console.log(error);
-//     }
-// }
+export const updateCustomer = (form , id)=>async (dispatch) =>{
+    try { 
+const products = await axios.patch(`${process.env.REACT_APP_API_URL}/customer/${id}`,form )
+        dispatch({
+            type:UPDATE_CUSTOMER,
+            payload:products.data.result
+        })
+} catch (error) {
+        console.log(error);
+    }
+}
 
 
 export const getCustomerById = (id)=>async (dispatch) =>{
     try { 
 const customer = await axios.get(`${process.env.REACT_APP_API_URL}/customer/find/${id}`)
-console.log(customer);
         dispatch({
             type:GET_CUSTOMER_BYID,
             payload:customer.data.result
